@@ -337,43 +337,81 @@
 
         .showcase-visual {
             width: 100%;
-            aspect-ratio: 16/10;
-            background: rgba(255,255,255,0.04);
+            aspect-ratio: 16/9;
+            background: #000;
             border: 1px solid var(--divider);
             border-radius: 16px;
             margin-bottom: 20px;
             overflow: hidden;
             position: relative;
-            transition: all .4s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transition: border-color .4s, box-shadow .4s;
+            cursor: pointer;
+        }
+        .showcase-visual.portrait {
+            aspect-ratio: 9/16;
+            max-width: 280px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .showcase-visual:hover {
             border-color: rgba(26,189,225,0.3);
-            transform: scale(1.02);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .showcase-visual img.thumb {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .showcase-visual iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
         }
 
         .play-btn {
-            width: 56px; height: 56px;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px; height: 64px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.55);
+            backdrop-filter: blur(8px);
+            border: 2px solid rgba(255,255,255,0.5);
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all .3s;
-            cursor: pointer;
+            pointer-events: none;
+            z-index: 2;
         }
-        .play-btn:hover {
-            background: rgba(26,189,225,0.3);
+        .showcase-visual:hover .play-btn {
+            background: rgba(26,189,225,0.45);
             border-color: var(--c);
-            transform: scale(1.1);
+            transform: translate(-50%, -50%) scale(1.1);
         }
-        .play-btn svg { width: 20px; height: 20px; fill: white; margin-left: 3px; }
+        .showcase-visual.loaded .play-btn { display: none; }
+        .play-btn svg { width: 22px; height: 22px; fill: white; margin-left: 4px; }
+
+        /* Badge for Shorts and AI */
+        .vid-badge {
+            position: absolute;
+            top: 12px; left: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 20px;
+            z-index: 3;
+            pointer-events: none;
+        }
+        .vid-badge.social { background: rgba(26,189,225,0.85); color: #fff; }
+        .vid-badge.ai { background: rgba(147,51,234,0.85); color: #fff; }
 
         .showcase-title {
             font-size: 14px;
@@ -685,47 +723,63 @@
         <h2 class="section-title reveal" style="margin-bottom:60px;">What Our Editors <span class="g">Deliver</span></h2>
 
         <div class="showcase-grid">
+            <!-- Video 1: landscape -->
             <div class="showcase-item reveal">
-                <div class="showcase-visual">
+                <div class="showcase-visual" onclick="loadYT(this,'f9Hgfq2eQ9Q')">
+                    <img class="thumb" src="https://img.youtube.com/vi/f9Hgfq2eQ9Q/maxresdefault.jpg" alt="Effortless Text FX">
                     <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
                 </div>
-                <p class="showcase-title"><span>Flawless</span> Speed Ramps That Flow With the Story</p>
-                <p class="showcase-desc">Each frame glides with intention. Our editors craft speed transitions so smooth, they feel invisible.</p>
+                <p class="showcase-title"><span>Effortless Text FX</span> That Stop the Scroll</p>
+                <p class="showcase-desc">Bold typography that moves like it belongs. Our editors craft on-screen text that feels native to trending social formats &mdash; so your content doesn't just perform, it converts.</p>
             </div>
+            <!-- Video 2: landscape -->
             <div class="showcase-item reveal">
-                <div class="showcase-visual">
+                <div class="showcase-visual" onclick="loadYT(this,'grqs_a6dyjI')">
+                    <img class="thumb" src="https://img.youtube.com/vi/grqs_a6dyjI/maxresdefault.jpg" alt="Creative Transitions">
                     <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
                 </div>
                 <p class="showcase-title">Creative <span>Transitions</span> Without the Gimmicks</p>
                 <p class="showcase-desc">Transitions designed to feel inevitable. Subtle, sophisticated, and captivating. Your audience won't be able to look away.</p>
             </div>
+            <!-- Video 3: landscape, AI -->
             <div class="showcase-item reveal">
-                <div class="showcase-visual">
+                <div class="showcase-visual" onclick="loadYT(this,'MRklW2tiCjU')">
+                    <img class="thumb" src="https://img.youtube.com/vi/MRklW2tiCjU/maxresdefault.jpg" alt="AI-Enhanced Editing">
+                    <span class="vid-badge ai">AI Enhanced</span>
                     <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
                 </div>
-                <p class="showcase-title">Text Integration That <span>Enhances</span> &mdash; Never Distracts</p>
-                <p class="showcase-desc">Typography that becomes part of the scene. Every word is placed with purpose, amplifying the message without breaking immersion.</p>
+                <p class="showcase-title"><span>AI-Powered</span> Visuals That Feel Human</p>
+                <p class="showcase-desc">We harness cutting-edge AI tools to generate visuals, enhance footage, and build worlds that would be impossible to film &mdash; then our editors make it feel completely real.</p>
             </div>
+            <!-- Video 4: portrait Short -->
             <div class="showcase-item reveal">
-                <div class="showcase-visual">
+                <div class="showcase-visual portrait" onclick="loadYT(this,'X7Ny4yO3Y0g',true)">
+                    <img class="thumb" src="https://img.youtube.com/vi/X7Ny4yO3Y0g/maxresdefault.jpg" alt="Social Media Content">
+                    <span class="vid-badge social">Social</span>
                     <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
                 </div>
-                <p class="showcase-title">Cinematic <span>Color Grading</span> for Maximum Impact</p>
-                <p class="showcase-desc">Colors that breathe life into every scene. Perfectly balanced whites, rich tones, and depth that makes your content impossible to ignore.</p>
+                <p class="showcase-title">Scroll-Stopping <span>Social Content</span></p>
+                <p class="showcase-desc">Optimized for Reels, TikTok, and Shorts. Fast-paced, hook-driven edits that grab attention in the first second and hold it all the way through.</p>
             </div>
+            <!-- Video 5: portrait Short -->
             <div class="showcase-item reveal">
-                <div class="showcase-visual">
+                <div class="showcase-visual portrait" onclick="loadYT(this,'w9k6OX27yMs',true)">
+                    <img class="thumb" src="https://img.youtube.com/vi/w9k6OX27yMs/maxresdefault.jpg" alt="Social Media Optimized">
+                    <span class="vid-badge social">Social</span>
                     <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
                 </div>
-                <p class="showcase-title">Seamless <span>Stabilization</span> &mdash; No Shaky Shots Here</p>
-                <p class="showcase-desc">Every movement feels anchored and deliberate. We erase distractions, so the focus stays where it belongs &mdash; on the story.</p>
+                <p class="showcase-title">Trending <span>Formats</span>, On-Brand Every Time</p>
+                <p class="showcase-desc">Your brand voice, translated into whatever format is dominating the feed. We keep you ahead of the curve without you lifting a finger.</p>
             </div>
+            <!-- Video 6: portrait Short -->
             <div class="showcase-item reveal">
-                <div class="showcase-visual">
+                <div class="showcase-visual portrait" onclick="loadYT(this,'KoeUwlBjisA',true)">
+                    <img class="thumb" src="https://img.youtube.com/vi/KoeUwlBjisA/maxresdefault.jpg" alt="Social Media Optimized">
+                    <span class="vid-badge social">Social</span>
                     <div class="play-btn"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
                 </div>
-                <p class="showcase-title">Day-to-Night <span>Magic</span> That Elevates Every Scene</p>
-                <p class="showcase-desc">Lighting that defies time. From sunlit mornings to electric nights, we create the impossible with seamless realism.</p>
+                <p class="showcase-title">Built for the <span>Algorithm</span>, Made for Your Audience</p>
+                <p class="showcase-desc">Captions, pacing, hooks, and cuts all tuned for maximum watch time. Content that the algorithm loves and your audience can't stop watching.</p>
             </div>
         </div>
 
@@ -817,7 +871,8 @@
     <section class="video-cta-section">
         <p class="section-eyebrow reveal">Discover What's Possible</p>
         <h2 class="section-title reveal" style="margin-bottom:40px;">See a Staffify <span class="g">Editor</span> in Action</h2>
-        <div class="video-wrap reveal">
+        <div class="video-wrap reveal" onclick="loadYT(this,'LCdBk8JendE')" style="cursor:pointer;">
+            <img class="thumb" src="https://img.youtube.com/vi/LCdBk8JendE/maxresdefault.jpg" alt="Editor in Action" style="width:100%;height:100%;object-fit:cover;display:block;">
             <div class="play-btn" style="width:72px;height:72px;">
                 <svg viewBox="0 0 24 24" style="width:28px;height:28px;"><polygon points="5,3 19,12 5,21" fill="white"/></svg>
             </div>
@@ -860,6 +915,21 @@
             const y = (e.clientY / window.innerHeight - 0.5) * 20;
             orb.style.transform = `translateX(calc(-50% + ${x}px)) translateY(${y}px)`;
         });
+
+        // YouTube click-to-load
+        function loadYT(el, videoId, isShort) {
+            if (el.classList.contains('loaded')) return;
+            el.classList.add('loaded');
+            const path = isShort ? 'shorts/' : 'embed/';
+            const iframe = document.createElement('iframe');
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`;
+            iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+            iframe.allowFullscreen = true;
+            iframe.style.cssText = 'width:100%;height:100%;border:none;display:block;';
+            // Remove thumbnail and play button, insert iframe
+            el.innerHTML = '';
+            el.appendChild(iframe);
+        }
 
         // Smooth nav background on scroll
         const nav = document.querySelector('nav');
